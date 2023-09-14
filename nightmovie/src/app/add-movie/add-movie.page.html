@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ movie?.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Affichage des détails du film -->
+  <div *ngIf="movie">
+    <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}">
+    <h2>{{ movie.title }}</h2>
+    <p>{{ movie.overview }}</p>
+  </div>
+
+  <!-- Sélection de la catégorie du film -->
+  <ion-item>
+    <ion-label>Catégorie</ion-label>
+    <ion-select [(ngModel)]="selectedCategoryId">
+      <ion-select-option *ngFor="let category of categories" [value]="category.id">{{ category.nom }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Bouton pour ajouter le film à la base de données -->
+  <ion-button expand="full" (click)="addMovieToDatabase()">Ajouter le film</ion-button>
+  <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+</ion-content>

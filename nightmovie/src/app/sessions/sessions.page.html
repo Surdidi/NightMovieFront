@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Séances
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Session en cours -->
+  <ion-card *ngIf="sessions[0]?.isOngoing">
+    <ion-card-header>
+      Séance en cours
+      <ion-icon *ngIf="isAdmin" name="trash" (click)="deleteSession(sessions[0]?.id)"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="isAdmin">{{ sessions[0]?.film?.nom }} - {{ sessions[0]?.categorie?.nom }}</div>
+      <div>
+        <ion-button (click)="revealMovie()">Révéler</ion-button>
+        <!-- Animation de roue ici -->
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Sessions précédentes -->
+  <ion-list>
+    <ion-item *ngFor="let session of sessions">
+      <ion-label *ngIf="!session.isOngoing">{{ session.film?.nom }} - {{ session.categorie?.nom }}</ion-label>
+      <ion-icon *ngIf="isAdmin" name="trash" (click)="deleteSession(session.id)"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" id="generate-session">Générer une nouvelle séance</ion-button>
+
+  <ion-modal #modalGenerateSession trigger="generate-session">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>Création d'une session</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="modalGenerateSession.dismiss()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-item *ngFor="let user of users">
+            <ion-checkbox (ionChange)="onUserChange(user, $event)"></ion-checkbox>
+            <ion-label>{{user.userName}}</ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="full" (click)="generateNewSession()" >Générer</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

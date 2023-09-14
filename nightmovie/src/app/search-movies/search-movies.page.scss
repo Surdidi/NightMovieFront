@@ -1,0 +1,38 @@
+ion-content {
+  padding: 16px;
+  ion-list {
+    ion-item {
+      --hover-color: #f2f2f2;
+    }
+  }
+  ion-item:hover {
+    background-color: slategray !important;
+  }
+  .movie-item {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 16px;
+    --inner-padding-start: 16px;
+    --min-height: 100px;
+
+    ion-label {
+      h2 {
+        font-weight: bold;
+      }
+
+      p {
+        color: gray;
+      }
+    }
+
+    ion-thumbnail {
+      --size: 80px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+  }
+}
